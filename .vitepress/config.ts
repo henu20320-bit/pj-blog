@@ -32,6 +32,15 @@ export default defineConfig({
   title: "我的博客",
   description: "一个 VitePress 博客模板",
 
+  vite: {
+    server: {
+      watch: {
+        // 监听整个 blog 目录（包括新增文件）
+        ignored: ['!**/blog/**']
+      }
+    }
+  }
+
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
