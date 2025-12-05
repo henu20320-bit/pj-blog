@@ -39,7 +39,7 @@ export default defineConfig({
         ignored: ['!**/blog/**']
       }
     }
-  }
+  },
 
   themeConfig: {
     nav: [
