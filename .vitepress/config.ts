@@ -29,8 +29,12 @@ function getBlogSidebar() {
 }
 
 export default defineConfig({
-  title: "我的博客",
+  title: "lanlan",
   description: "一个 VitePress 博客模板",
+
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.png' }]
+  ],
 
   vite: {
     server: {
@@ -42,6 +46,8 @@ export default defineConfig({
   },
 
   themeConfig: {
+    logo: '☀️',
+    siteTitle: 'lanlan',
     nav: [
       { text: '首页', link: '/' },
       { text: '文章', link: '/blog/' }
@@ -52,7 +58,13 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/henu20320-bit' },
+      {
+        icon: {
+          svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><image href="/link-icon.svg" width="24" height="24" /></svg>'
+        },
+        link: 'https://github.com/henu20320-bit'
+      }
     ],
 
     search: {

@@ -1,0 +1,274 @@
+/* 蔚蓝色风格 - Cerulean Blue Theme */
+
+:root {
+    /* 浅色模式下的蔚蓝色背景渐变 */
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0077b6 30%, #48cae4);
+
+    /* 全局背景色微调，带一点点蓝调 */
+    --vp-c-bg: #f0f9ff;
+    --vp-c-bg-alt: #e0f2fe;
+}
+
+/* 针对首页 Hero 区域的背景装饰 */
+.VPHome {
+    background: linear-gradient(180deg, #e0f7fa 0%, var(--vp-c-bg) 100%);
+    min-height: 100vh;
+}
+
+/* 深色模式适配 */
+.dark :root {
+    /* 深色模式下的深蓝背景 */
+    --vp-c-bg: #0f172a;
+    --vp-c-bg-alt: #1e293b;
+    --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #38bdf8 30%, #818cf8);
+}
+
+.dark .VPHome {
+    background: linear-gradient(180deg, #0c1220 0%, #0f172a 100%);
+}
+
+/* 优化搜索框在蓝色背景下的显示 */
+.search-trigger {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .search-trigger {
+    background: rgba(30, 41, 59, 0.7) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 标题渐变色增强 */
+.VPHero .name {
+    background: var(--vp-home-hero-name-background);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: var(--vp-home-hero-name-color);
+}
+
+/* Floating Glass Navbar & Centered Content Focus */
+.VPNav {
+    top: 20px !important;
+    /* Suspend navbar from top */
+    max-width: 900px !important;
+    /* Limit width */
+    margin: 0 auto !important;
+    /* Center it */
+    inset-inline: 0;
+    border-radius: 99px !important;
+    /* Fully rounded pills */
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    /* Translucent */
+    backdrop-filter: blur(20px) !important;
+    /* Glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    /* Subtle border */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05) !important;
+    /* Soft shadow */
+    transition: all 0.3s ease;
+}
+
+/* Hide the full-width border line below nav */
+.VPNavBar {
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+
+.VPNavBar .divider {
+    display: none !important;
+}
+
+/* Adjust Dark Mode Navbar */
+.dark .VPNav {
+    background-color: rgba(15, 23, 42, 0.7) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Adjust Layout to account for floating nav */
+.VPContent {
+    padding-top: 120px !important;
+    /* Push content down */
+}
+
+/* Simplify Hero Title to fix "cut-off" issue specifically */
+.hero-title {
+    line-height: 1.2 !important;
+    /* Increase line height */
+    padding-bottom: 0.1em;
+    /* Add slight padding for descenders */
+    padding-top: 0.1em;
+    /* Add slight padding for ascenders */
+    margin-top: 50px !important;
+    /* Ensure spacing from avatar */
+    font-size: 3rem !important;
+    /* Ensure size fits */
+    width: 100%;
+    /* Ensure full width availability */
+
+    /* =========================================
+   Plume/Paiad Article Design Implementation
+   UI Language: "Digital Garden" / "Note-taking Aesthetics"
+   Focus: Clean typography, Grid/Graph paper textures, Card containers
+   ========================================= */
+
+    /* 1. Article Container & Background (The "Graph Paper" Look) */
+    /* We target .VPContent since .VPDoc is just a wrapper inside it sometimes, 
+   but specific to doc layout we want the "Paper" effect on the CONTENT area, not the whole page background.
+   VitePress structure: .VPContent -> .VPDoc -> .container -> .content
+*/
+
+    /* Global Page Background with Grid (behind everything) */
+    .VPDoc {
+        background-color: #f8fafc;
+        /* Light slate bg */
+        background-image:
+            linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .dark .VPDoc {
+        background-color: #0f172a;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* The "Paper" Sheet */
+    .VPDoc .container>.content {
+        background-color: #ffffff;
+        border-radius: 8px;
+        /* Slightly sharper corners like paper */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.02);
+        /* Subtle lift */
+        padding: 40px 60px !important;
+        /* Generous padding */
+        margin: 0 auto;
+        max-width: 960px !important;
+        /* Note width */
+    }
+
+    .dark .VPDoc .container>.content {
+        background-color: #1e293b;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Adjust Sidebar to not clash with the "Paper" look - keep it clean */
+    .VPSidebar {
+        background-color: transparent !important;
+        border-right: none !important;
+    }
+
+    /* Hide OnChanged/PrevNext for cleaner look if requested, but user didn't specific. Keeping them. */
+
+    /* 2. Typography & Headings (The "Title Area") */
+    .vp-doc h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: #1a1a1a;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Simulate the "Icon" next to title if they add an emoji to MD title, or just generic style */
+    .vp-doc h1::before {
+        content: '';
+        /* This assumes we want a generic marker if no icon exists. 
+       The user asked for design like the image (orange fruit). 
+       Without changing HTML/Markdown, we can't inject specific icons per page dynamically via CSS only 
+       unless we stick a default one or user adds it in text. 
+       We will add a decorative accent bar instead for now. */
+        display: inline-block;
+        width: 6px;
+        height: 1em;
+        background: linear-gradient(to bottom, #4ade80, #06b6d4);
+        /* Green to Blue accent */
+        border-radius: 4px;
+        margin-right: 8px;
+    }
+
+    /* 3. Meta Information (Simulating the tags/date row) */
+    /* Note: VitePress usually puts this in a separate component, but if it exists in .vp-doc styling: */
+    .vp-doc h1+p {
+        color: var(--vp-c-text-2);
+        font-family: monospace;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+
+    /* 4. Blockquotes (The gray box style) */
+    .vp-doc blockquote {
+        background: #f3f4f6;
+        border: none;
+        /* Remove default border */
+        border-radius: 8px;
+        padding: 16px 20px;
+        color: #4b5563;
+        font-style: normal;
+        margin: 24px 0;
+        position: relative;
+    }
+
+    .dark .vp-doc blockquote {
+        background: #334155;
+        color: #cbd5e1;
+    }
+
+    /* Add huge quote mark inspiration */
+    .vp-doc blockquote::before {
+        content: '“';
+        font-size: 3em;
+        color: #cbd5e1;
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        opacity: 0.5;
+        font-family: serif;
+    }
+
+    .dark .vp-doc blockquote::before {
+        color: #64748b;
+    }
+
+    /* 5. Custom Green/Teal Accents (Buttons/Links in content) */
+    .vp-doc a {
+        color: #0d9488;
+        /* Teal-600 */
+        text-decoration: none;
+        border-bottom: 1px dashed #0d9488;
+        transition: all 0.2s;
+    }
+
+    .vp-doc a:hover {
+        color: #0f766e;
+        border-bottom-style: solid;
+        background: rgba(13, 148, 136, 0.1);
+    }
+
+    /* 6. H2 Styling - The "Green Pipe" look from the screenshot */
+    .vp-doc h2 {
+        border-bottom: none;
+        padding-top: 1.5em;
+        margin-bottom: 1em;
+        display: flex;
+        align-items: center;
+    }
+
+    .vp-doc h2::before {
+        content: '#';
+        color: #4ade80;
+        /* Light green accent */
+        margin-right: 8px;
+        font-weight: 300;
+    }
+
+    /* 7. Code Blocks */
+    .vp-doc div[class*='language-'] {
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+}

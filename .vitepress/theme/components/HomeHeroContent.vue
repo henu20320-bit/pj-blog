@@ -1,6 +1,4 @@
 <script setup>
-import { onMounted } from 'vue'
-
 const openSearch = () => {
     // Try to click the search button in the navbar if it exists
     const searchBtn = document.querySelector('.VPNavBarSearchButton')
@@ -15,91 +13,161 @@ const openSearch = () => {
 const aiLinks = [
     { icon: '🐳', link: 'https://www.deepseek.com/' },
     { icon: '🤖', link: '#' },
-    { icon: '⚡', link: '#' },
-    { icon: '🌲', link: '#' },
-    { icon: '☀️', link: '#' },
+    { icon: '🌲', link: 'https://obsidian-note-ruby.vercel.app/' },
+    { icon: '☀️', link: 'https://paiad-blog.vercel.app/' },
 ]
 </script>
 
 <template>
-  <div class="home-hero-content">
-    <img src="/avatar.png" class="hero-avatar" alt="Avatar" />
-    
-    <div class="search-trigger" @click="openSearch">
-      <span class="icon">🔍</span>
-      <span class="placeholder">Can the paradoxes of time travel be resolved?</span>
-      <div class="shortcut">
-        <span class="arrow">→</span>
+  <div class="home-hero-container">
+    <div class="hero-card">
+      <div class="avatar-wrapper">
+        <img src="/avatar-plume.png" class="hero-avatar" alt="Avatar" />
       </div>
-    </div>
+      
+      <h1 class="hero-title">Welcome to my blog</h1>
+      <div class="search-trigger" @click="openSearch">
+        <span class="icon">🔍</span>
+        <span class="placeholder">Can the paradoxes of time travel be resolved?</span>
+        <div class="shortcut">
+          <span class="arrow">→</span>
+        </div>
+      </div>
 
-    <div class="ai-links">
-      <a 
-        v-for="(item, index) in aiLinks" 
-        :key="index" 
-        :href="item.link" 
-        target="_blank" 
-        class="ai-link"
-      >
-        <span class="ai-icon">{{ item.icon }}</span>
-      </a>
+      <div class="ai-links">
+        <a 
+          v-for="(item, index) in aiLinks" 
+          :key="index" 
+          :href="item.link" 
+          target="_blank" 
+          class="ai-link"
+        >
+          <span class="ai-icon" v-if="item.isImage"><img :src="item.icon" class="ai-img-icon" /></span>
+          <span class="ai-icon" v-else>{{ item.icon }}</span>
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.home-hero-content {
+.home-hero-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 80px 20px 40px; /* Added top padding to accommodate negative margin of avatar */
+  min-height: 60vh;
+}
+
+.hero-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  width: 100%;
+  max-width: 800px;
+  padding: 60px 40px 50px;
+  border-radius: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05); /* Soft large shadow for card elevation */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
-  margin-top: 32px;
-  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  margin-top: 50px; /* Space for the floating avatar */
+}
+
+.dark .hero-card {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.avatar-wrapper {
+  position: absolute;
+  top: -70px; /* Float overlapping the top border */
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .avatar-wrapper {
+   background: rgba(30,30,30, 0.3);
+   border-color: rgba(255, 255, 255, 0.1);
 }
 
 .hero-avatar {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
+  display: block;
 }
 
 .hero-avatar:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(5deg);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  background: -webkit-linear-gradient(120deg, #0077b6 30%, #48cae4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 50px; /* Increased from 40px */
+  margin-bottom: 30px; 
+  letter-spacing: -0.02em;
+  line-height: 1.3; /* Fix cut-off descenders */
+  padding: 0 10px; /* Safety padding */
+}
+
+.dark .hero-title {
+   background: -webkit-linear-gradient(120deg, #38bdf8 30%, #818cf8);
+   -webkit-background-clip: text;
+   background-clip: text;
+   -webkit-text-fill-color: transparent;
 }
 
 .search-trigger {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 600px;
-  padding: 12px 20px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 99px;
+  max-width: 500px;
+  padding: 14px 24px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 16px;
   cursor: text;
-  transition: border-color 0.25s, background-color 0.25s;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.dark .search-trigger {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255,255,255,0.1);
 }
 
 .search-trigger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); /* Lift effect */
   border-color: var(--vp-c-brand);
-  background: var(--vp-c-bg-mute);
 }
 
 .icon {
   margin-right: 12px;
-  font-size: 1.1em;
-  opacity: 0.6;
+  font-size: 1.2em;
+  opacity: 0.5;
 }
 
 .placeholder {
   flex: 1;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--vp-c-text-2);
-  font-family: monospace;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -112,9 +180,9 @@ const aiLinks = [
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--vp-c-divider);
+  background: rgba(0,0,0,0.05);
   color: var(--vp-c-text-2);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .ai-links {
@@ -122,27 +190,40 @@ const aiLinks = [
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  padding: 20px;
-  background: var(--vp-c-bg-soft);
-  border-radius: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-top: 32px;
 }
 
 .ai-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--vp-c-bg);
-  transition: transform 0.2s, box-shadow 0.2s;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.5);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   font-size: 24px;
   text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.dark .ai-link {
+    background: rgba(255,255,255,0.05);
 }
 
 .ai-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-4px) scale(1.05);
+  background: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.dark .ai-link:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.ai-img-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 </style>
