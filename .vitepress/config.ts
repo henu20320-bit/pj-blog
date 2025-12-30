@@ -37,6 +37,7 @@ export default defineConfig({
   ],
 
   vite: {
+
     server: {
       watch: {
         // 监听整个 blog 目录（包括新增文件）
