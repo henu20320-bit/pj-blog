@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx vitepress build",
+  "buildCommand": "node node_modules/vitepress/bin/vitepress.js build",
   "outputDirectory": ".vitepress/dist",
   "installCommand": "npm install",
   "framework": "vitepress",
