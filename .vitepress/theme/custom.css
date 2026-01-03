@@ -1,22 +1,45 @@
-/* 蔚蓝色风格 - Cerulean Blue Theme */
+/* ==========================================================================
+   蔚蓝色主题风格 (Cerulean Blue Theme)
+   ========================================================================== */
 
 :root {
-    /* 浅色模式下的蔚蓝色背景渐变 */
+    /* 浅色模式下的蔚蓝色背景渐变（仅用于首页 Hero 标题） */
     --vp-home-hero-name-color: transparent;
     --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0077b6 30%, #48cae4);
 
-    /* 全局背景色微调，带一点点蓝调 */
-    --vp-c-bg: #f0f9ff;
-    --vp-c-bg-alt: #e0f2fe;
+    /* 全局背景色改为白色，不再使用蓝调 */
+    --vp-c-bg: #ffffff;
+    --vp-c-bg-alt: #f8f9fa;
+
+    /* 全局字体设置 */
+    --vp-font-family-base: 'Maple Mono CN SemiBold', 'Maple Mono CN', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --vp-font-family-mono: 'Maple Mono CN SemiBold', 'Maple Mono CN', 'Courier New', monospace;
+
+    /* ==========================================================================
+       布局调整 (Layout Customization)
+       ========================================================================== */
+    /* 缩小侧边栏宽度 (默认是 272px) */
+    --vp-sidebar-width: 220px;
+
+    /* 调整内容区域的最大宽度，使其利用更多空间 */
+    --vp-layout-max-width: 1440px;
 }
 
-/* 针对首页 Hero 区域的背景装饰 */
+/* 首页 Hero 区域的背景装饰 */
 .VPHome {
     background: linear-gradient(180deg, #e0f7fa 0%, var(--vp-c-bg) 100%);
     min-height: 100vh;
 }
 
-/* 深色模式适配 */
+/* 全局字体应用 */
+body {
+    font-family: 'Maple Mono CN SemiBold', 'Maple Mono CN', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   深色模式适配 (Dark Mode)
+   ========================================================================== */
 .dark :root {
     /* 深色模式下的深蓝背景 */
     --vp-c-bg: #0f172a;
@@ -28,7 +51,12 @@
     background: linear-gradient(180deg, #0c1220 0%, #0f172a 100%);
 }
 
-/* 优化搜索框在蓝色背景下的显示 */
+/* ==========================================================================
+   组件样式优化
+   ========================================================================== */
+
+/* 1. 搜索框优化 */
+/* 在蓝色背景下优化搜索框显示 */
 .search-trigger {
     background: rgba(255, 255, 255, 0.8) !important;
     backdrop-filter: blur(10px);
@@ -40,7 +68,7 @@
     border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* 标题渐变色增强 */
+/* 2. Hero 标题渐变色增强 */
 .VPHero .name {
     background: var(--vp-home-hero-name-background);
     -webkit-background-clip: text;
@@ -48,227 +76,388 @@
     -webkit-text-fill-color: var(--vp-home-hero-name-color);
 }
 
-/* Floating Glass Navbar & Centered Content Focus */
-.VPNav {
-    top: 20px !important;
-    /* Suspend navbar from top */
-    max-width: 900px !important;
-    /* Limit width */
-    margin: 0 auto !important;
-    /* Center it */
-    inset-inline: 0;
-    border-radius: 99px !important;
-    /* Fully rounded pills */
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    /* Translucent */
-    backdrop-filter: blur(20px) !important;
-    /* Glass effect */
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    /* Subtle border */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05) !important;
-    /* Soft shadow */
-    transition: all 0.3s ease;
+/* 3. Hero 标题排版修复 */
+/* 修复标题可能被截断的问题 */
+.hero-title {
+    line-height: 1.2 !important;
+    /* 增加行高 */
+    padding-bottom: 0.1em;
+    /* 底部微调留白 */
+    padding-top: 0.1em;
+    /* 顶部微调留白 */
+    margin-top: 50px !important;
+    /* 确保与头像的间距 */
+    font-size: 3rem !important;
+    /* 确保字体大小 */
+    width: 100%;
+    /* 确保占满宽度 */
 }
 
-/* Hide the full-width border line below nav */
+/* ==========================================================================
+   导航栏样式 (Standard Navbar Redesign)
+   风格：全宽、底部边框、磨砂玻璃效果 (类似 Paiad Blog)
+   ========================================================================== */
+
+/* 重置导航栏为标准全宽顶部栏 */
+.VPNav {
+    /* 移除之前的悬浮胶囊样式 */
+    top: 0 !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    /* 保持背景模糊 */
+    background-color: #ffffff !important;
+    /* 改为纯白，与侧边栏统一 */
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid var(--vp-c-divider) !important;
+    /* 添加底部边框 */
+    transition: background-color 0.5s;
+}
+
+.dark .VPNav {
+    background-color: #0f172a !important;
+    /* 深色模式下与侧边栏统一 */
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 恢复导航栏底部的默认元素显示 */
 .VPNavBar {
     background-color: transparent !important;
-    border-bottom: none !important;
 }
 
 .VPNavBar .divider {
-    display: none !important;
+    display: block !important;
+    /* 恢复显示 */
+    background-color: transparent !important;
+    /* 但我们用 VPNav 的 border-bottom 代替 */
 }
 
-/* Adjust Dark Mode Navbar */
-.dark .VPNav {
-    background-color: rgba(15, 23, 42, 0.7) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Adjust Layout to account for floating nav */
+/* 调整内容区域布局 (因为导航栏不再悬浮，padding 需要调整) */
 .VPContent {
-    padding-top: 120px !important;
-    /* Push content down */
+    padding-top: var(--vp-nav-height) !important;
+    /* 恢复标准顶部间距 */
 }
 
-/* Simplify Hero Title to fix "cut-off" issue specifically */
-.hero-title {
-    line-height: 1.2 !important;
-    /* Increase line height */
-    padding-bottom: 0.1em;
-    /* Add slight padding for descenders */
-    padding-top: 0.1em;
-    /* Add slight padding for ascenders */
-    margin-top: 50px !important;
-    /* Ensure spacing from avatar */
-    font-size: 3rem !important;
-    /* Ensure size fits */
-    width: 100%;
-    /* Ensure full width availability */
+/* 侧边栏调整：确保占据页面左侧 */
+.VPSidebar {
+    top: var(--vp-nav-height) !important;
+    /* 紧接在导航栏下方 */
+    /* 给侧边栏设置实体背景色，防止透出 body 的淡蓝色背景 */
+    background-color: #ffffff !important;
+    border-right: 1px dashed var(--vp-c-divider) !important;
+    /* 添加虚线分割 */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+    /* 添加极淡的阴影增加层次感 */
+}
 
-    /* =========================================
-   Plume/Paiad Article Design Implementation
-   UI Language: "Digital Garden" / "Note-taking Aesthetics"
-   Focus: Clean typography, Grid/Graph paper textures, Card containers
-   ========================================= */
+.dark .VPSidebar {
+    background-color: #0f172a !important;
+    /* 深色模式背景 */
+}
 
-    /* 1. Article Container & Background (The "Graph Paper" Look) */
-    /* We target .VPContent since .VPDoc is just a wrapper inside it sometimes, 
-   but specific to doc layout we want the "Paper" effect on the CONTENT area, not the whole page background.
-   VitePress structure: .VPContent -> .VPDoc -> .container -> .content
-*/
+/* ==========================================================================
+   文章页设计 - "数字花园"风格 (Digital Garden Style)
+   特点: 干净的排版, 网格纹理背景, 卡片式容器
+   ========================================================================== */
 
-    /* Global Page Background with Grid (behind everything) */
-    .VPDoc {
-        background-color: #f8fafc;
-        /* Light slate bg */
-        background-image:
-            linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-        background-size: 20px 20px;
-    }
+/* 1. 全局页面背景 (网格纹理) */
+/* 应用于内容区域背景 */
+.VPDoc {
+    background-color: #f8fafc;
+    /* 浅蓝灰色底 */
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    /* 网格大小 */
+}
 
-    .dark .VPDoc {
-        background-color: #0f172a;
-        background-image:
-            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    }
+.dark .VPDoc {
+    background-color: #0f172a;
+    /* 深色底 */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
 
-    /* The "Paper" Sheet */
-    .VPDoc .container>.content {
-        background-color: #ffffff;
-        border-radius: 8px;
-        /* Slightly sharper corners like paper */
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.02);
-        /* Subtle lift */
-        padding: 40px 60px !important;
-        /* Generous padding */
-        margin: 0 auto;
-        max-width: 960px !important;
-        /* Note width */
-    }
+/* 2. 仿纸张效果的内容容器 */
+.VPDoc .container>.content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    /* 纸张圆角 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.02);
+    /* 轻微悬浮感 */
+    padding: 40px 60px !important;
+    /* 宽敞的内边距 */
+    margin: 0 auto;
+    max-width: 960px !important;
+    /* 限制内容宽度 */
+}
 
-    .dark .VPDoc .container>.content {
-        background-color: #1e293b;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
+.dark .VPDoc .container>.content {
+    background-color: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* 深色模式下的微边框 */
+}
 
-    /* Adjust Sidebar to not clash with the "Paper" look - keep it clean */
-    .VPSidebar {
-        background-color: transparent !important;
-        border-right: none !important;
-    }
+/* 调整侧边栏以适配"纸张"风格 */
+.VPSidebar {
+    background-color: transparent !important;
+    border-right: none !important;
+}
 
-    /* Hide OnChanged/PrevNext for cleaner look if requested, but user didn't specific. Keeping them. */
+/* 3. 排版与标题样式 */
+.vp-doc h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    /* 2. Typography & Headings (The "Title Area") */
-    .vp-doc h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 1.5rem;
-        color: #1a1a1a;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+/* 标题前的装饰条 (渐变色竖条) */
+.vp-doc h1::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 1em;
+    background: linear-gradient(to bottom, #4ade80, #06b6d4);
+    /* 绿色到蓝色的渐变 */
+    border-radius: 4px;
+    margin-right: 8px;
+}
 
-    /* Simulate the "Icon" next to title if they add an emoji to MD title, or just generic style */
-    .vp-doc h1::before {
-        content: '';
-        /* This assumes we want a generic marker if no icon exists. 
-       The user asked for design like the image (orange fruit). 
-       Without changing HTML/Markdown, we can't inject specific icons per page dynamically via CSS only 
-       unless we stick a default one or user adds it in text. 
-       We will add a decorative accent bar instead for now. */
-        display: inline-block;
-        width: 6px;
-        height: 1em;
-        background: linear-gradient(to bottom, #4ade80, #06b6d4);
-        /* Green to Blue accent */
-        border-radius: 4px;
-        margin-right: 8px;
-    }
+/* 标题后的元信息样式 (日期等) */
+.vp-doc h1+p {
+    color: var(--vp-c-text-2);
+    font-family: monospace;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
 
-    /* 3. Meta Information (Simulating the tags/date row) */
-    /* Note: VitePress usually puts this in a separate component, but if it exists in .vp-doc styling: */
-    .vp-doc h1+p {
-        color: var(--vp-c-text-2);
-        font-family: monospace;
-        font-size: 0.9em;
-        opacity: 0.8;
-    }
+/* 4. 二级标题样式 (绿色装饰) */
+.vp-doc h2 {
+    border-bottom: none;
+    padding-top: 1.5em;
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+}
 
-    /* 4. Blockquotes (The gray box style) */
-    .vp-doc blockquote {
-        background: #f3f4f6;
-        border: none;
-        /* Remove default border */
-        border-radius: 8px;
-        padding: 16px 20px;
-        color: #4b5563;
-        font-style: normal;
-        margin: 24px 0;
-        position: relative;
-    }
+.vp-doc h2::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    /* 图标宽度 */
+    height: 28px;
+    /* 图标高度 */
+    background-image: url('/h2-icon.png');
+    background-size: contain;
+    /* 保持图片比例 */
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 8px;
+}
 
-    .dark .vp-doc blockquote {
-        background: #334155;
-        color: #cbd5e1;
-    }
+/* 5. 引用块样式 (灰色背景块) */
+.vp-doc blockquote {
+    background: #f3f4f6;
+    border: none;
+    /* 移除默认边框 */
+    border-radius: 8px;
+    padding: 16px 20px;
+    color: #4b5563;
+    font-style: normal;
+    margin: 24px 0;
+    position: relative;
+}
 
-    /* Add huge quote mark inspiration */
-    .vp-doc blockquote::before {
-        content: '“';
-        font-size: 3em;
-        color: #cbd5e1;
-        position: absolute;
-        top: -10px;
-        left: 10px;
-        opacity: 0.5;
-        font-family: serif;
-    }
+.dark .vp-doc blockquote {
+    background: #334155;
+    color: #cbd5e1;
+}
 
-    .dark .vp-doc blockquote::before {
-        color: #64748b;
-    }
+/* 添加巨大的引号装饰 */
+.vp-doc blockquote::before {
+    content: '“';
+    font-size: 3em;
+    color: #cbd5e1;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    opacity: 0.5;
+    font-family: serif;
+}
 
-    /* 5. Custom Green/Teal Accents (Buttons/Links in content) */
-    .vp-doc a {
-        color: #0d9488;
-        /* Teal-600 */
-        text-decoration: none;
-        border-bottom: 1px dashed #0d9488;
-        transition: all 0.2s;
-    }
+.dark .vp-doc blockquote::before {
+    color: #64748b;
+}
 
-    .vp-doc a:hover {
-        color: #0f766e;
-        border-bottom-style: solid;
-        background: rgba(13, 148, 136, 0.1);
-    }
+/* 6. 链接和按钮样式 (青色强调) */
+.vp-doc a {
+    color: #0d9488;
+    /* 深青色 */
+    text-decoration: none;
+    border-bottom: 1px dashed #0d9488;
+    /* 虚线下划线 */
+    transition: all 0.2s;
+}
 
-    /* 6. H2 Styling - The "Green Pipe" look from the screenshot */
-    .vp-doc h2 {
-        border-bottom: none;
-        padding-top: 1.5em;
-        margin-bottom: 1em;
-        display: flex;
-        align-items: center;
-    }
+.vp-doc a:hover {
+    color: #0f766e;
+    border-bottom-style: solid;
+    /* 悬停时变为实线 */
+    background: rgba(13, 148, 136, 0.1);
+    /* 添加浅色背景 */
+}
 
-    .vp-doc h2::before {
-        content: '#';
-        color: #4ade80;
-        /* Light green accent */
-        margin-right: 8px;
-        font-weight: 300;
-    }
+/* 7. 代码块样式 */
+.vp-doc div[class*='language-'] {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
 
-    /* 7. Code Blocks */
-    .vp-doc div[class*='language-'] {
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
+/* ==========================================================================
+   8. 左侧侧边栏重设计 (Redesigned Sidebar)
+   风格：去边框、卡片式选中项、悬浮感列表
+   ========================================================================== */
+
+.VPSidebar {
+    /* 与前面保持一致，不仅去除了默认边框，还是用了虚线分割 */
+    /* border-right: none !important;  <-- 已在上方定义为虚线 */
+    background-color: #ffffff !important;
+    /* 必须是由于不透明背景 */
+    padding-left: 20px !important;
+    /* 增加左侧留白 */
+    padding-top: 0 !important;
+    /* 去掉顶部空白，让"最近文章"紧贴"lanlan" */
+    /* 确保覆盖透明背景 */
+}
+
+.dark .VPSidebar {
+    background-color: #0f172a !important;
+}
+
+/* 侧边栏内容容器也去掉顶部padding */
+.VPSidebar .content {
+    padding-top: 0 !important;
+}
+
+
+/* 侧边栏分组标题 */
+.VPSidebarItem.level-0 .item-text {
+    font-weight: 700 !important;
+    color: var(--vp-c-text-1) !important;
+    font-size: 15px !important;
+}
+
+/* 侧边栏链接项 */
+.VPSidebarItem .link {
+    border-radius: 8px !important;
+    /* 圆角卡片 */
+    transition: all 0.2s ease;
+    margin-right: 10px;
+    /* 右侧留出一点空间 */
+    padding: 6px 12px !important;
+    /* 增加内边距 */
+}
+
+/* 悬停状态 */
+.VPSidebarItem .link:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    /* 浅灰背景悬停 */
+}
+
+.dark .VPSidebarItem .link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 激活/选中状态 */
+.VPSidebarItem .link.active {
+    background-color: rgba(56, 189, 248, 0.1) !important;
+    /* 浅蓝色背景 */
+    color: #0284c7 !important;
+    /* 深蓝色文字 */
+    font-weight: 600 !important;
+}
+
+.dark .VPSidebarItem .link.active {
+    background-color: rgba(56, 189, 248, 0.2) !important;
+    color: #38bdf8 !important;
+}
+
+/* 移除原来可能存在的左边框指示器 */
+.VPSidebarItem.level-1 .item,
+.VPSidebarItem.level-2 .item,
+.VPSidebarItem.level-3 .item {
+    border-left: none !important;
+}
+
+/* ==========================================================================
+   9. 右侧目录栏重设计 (Redesigned Outline)
+   风格：时间轴/左边框指示风格
+   ========================================================================== */
+
+.VPDocAside {
+    /* 与导航栏高度对齐 */
+    margin-top: calc(var(--vp-nav-height) + 20px) !important;
+}
+
+/* 目录容器 */
+.VPDocAsideOutline {
+    padding-left: 16px !important;
+    border-left: 2px solid var(--vp-c-divider);
+    /* 添加左侧时间轴竖线 */
+}
+
+/* 目录标题 */
+.VPDocAsideOutline .outline-title {
+    text-align: left !important;
+    /* 改回左对齐 */
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px !important;
+    padding-left: 12px;
+}
+
+/* 目录链接 */
+.VPDocAsideOutline .outline-link {
+    font-size: 13px !important;
+    line-height: 2 !important;
+    /* 增加行高 */
+    color: var(--vp-c-text-2) !important;
+    padding-left: 12px !important;
+    /* 稍微缩进 */
+    border-left: 2px solid transparent;
+    /* 预留激活边框位置 */
+    margin-left: -18px;
+    /* 向左拉回，覆盖住时间轴线 */
+    transition: all 0.2s;
+    text-align: left !important;
+    /* 改回左对齐 */
+    display: block;
+}
+
+/* 悬停状态 */
+.VPDocAsideOutline .outline-link:hover {
+    color: var(--vp-c-text-1) !important;
+}
+
+/* 激活状态 */
+.VPDocAsideOutline .outline-link.active {
+    color: #0d9488 !important;
+    /* 青色高亮 */
+    border-left-color: #0d9488 !important;
+    /* 左侧激活边框显示 */
+    font-weight: 600 !important;
+}
+
+/* 隐藏默认的小滑块 Marker，因为我们自定义了 border-left */
+.VPDocAsideOutline .outline-marker {
+    display: none !important;
 }
