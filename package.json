@@ -15,6 +15,7 @@
     "vitepress": "^1.6.4"
   },
   "overrides": {
+    "entities": "6.0.1",
     "esbuild": "^0.27.0"
   }
 }
