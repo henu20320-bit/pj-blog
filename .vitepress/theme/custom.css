@@ -502,3 +502,21 @@ body {
         position: static;
     }
 }
+
+@media (min-width: 960px) {
+    body.reading-page .VPSidebar,
+    body.reading-page .VPNavBarSidebarButton {
+        display: none !important;
+    }
+
+    body.reading-page .VPNavBar.has-sidebar .content,
+    body.reading-page .VPNavBar.has-sidebar .divider,
+    body.reading-page .VPContent.has-sidebar {
+        padding-left: 0 !important;
+    }
+
+    body.reading-page .VPDoc.has-sidebar .content-container,
+    body.reading-page .VPDoc.has-sidebar .container {
+        max-width: 1440px;
+    }
+}
