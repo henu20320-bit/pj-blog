@@ -1,4 +1,4 @@
-import { createContentLoader } from 'vitepress'
+﻿import { createContentLoader } from 'vitepress'
 
 export interface Post {
   title: string
@@ -17,11 +17,11 @@ export default createContentLoader('blog/*.md', {
   excerpt: true,
   transform(raw): Post[] {
     return raw
-      .filter(({ url }) => !url.includes('/blog/index'))
+      .filter(({ url }) => !isDirectoryPage(url))
       .map(({ url, frontmatter, excerpt }) => ({
         title: frontmatter.title || fallbackTitleFromUrl(url),
         url,
-        excerpt,
+        excerpt: normalizeExcerpt(excerpt),
         date: formatDate(frontmatter.date)
       }))
       .sort((a, b) => {
@@ -36,6 +36,10 @@ export default createContentLoader('blog/*.md', {
       })
   }
 })
+
+function isDirectoryPage(url: string) {
+  return url === '/blog/' || url === '/blog/index' || url === '/blog/index.html'
+}
 
 function formatDate(raw?: string): Post['date'] | null {
   if (!raw) return null
@@ -58,4 +62,29 @@ function formatDate(raw?: string): Post['date'] | null {
 function fallbackTitleFromUrl(url: string): string {
   const slug = url.split('/').filter(Boolean).pop() || 'untitled'
   return decodeURIComponent(slug)
+}
+
+function normalizeExcerpt(excerpt?: string) {
+  if (!excerpt) return undefined
+
+  const text = excerpt
+    .replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\|/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  if (!text) return undefined
+
+  const shortText = text.length > 120 ? `${text.slice(0, 120).trim()}...` : text
+  return `<span>${escapeHtml(shortText)}</span>`
+}
+
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
