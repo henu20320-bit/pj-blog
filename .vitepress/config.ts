@@ -26,21 +26,21 @@ function parseDate(value: unknown) {
   return date.getTime()
 }
 
-function getBlogSidebar() {
-  const blogDir = path.resolve(__dirname, '../blog')
+function getSectionSidebar(dirName: string, basePath: string, sectionTitle: string) {
+  const dir = path.resolve(__dirname, `../${dirName}`)
 
   const items = fs
-    .readdirSync(blogDir)
+    .readdirSync(dir)
     .filter(file => file.endsWith('.md') && file !== 'index.md')
     .map(file => {
       const slug = file.replace(/\.md$/, '')
-      const fullPath = path.join(blogDir, file)
+      const fullPath = path.join(dir, file)
       const source = fs.readFileSync(fullPath, 'utf-8')
       const { data } = matter(source)
 
       return {
         text: typeof data.title === 'string' && data.title.trim() ? data.title.trim() : toDisplayTitle(slug),
-        link: `/blog/${encodeURI(slug)}`,
+        link: `${basePath}/${encodeURI(slug)}`,
         date: parseDate(data.date)
       } satisfies SidebarItem
     })
@@ -58,7 +58,7 @@ function getBlogSidebar() {
 
   return [
     {
-      text: '最近文章',
+      text: sectionTitle,
       items
     }
   ]
@@ -77,7 +77,7 @@ export default defineConfig({
   vite: {
     server: {
       watch: {
-        ignored: ['!**/blog/**']
+        ignored: ['!**/blog/**', '!**/notes/**']
       }
     }
   },
@@ -88,11 +88,13 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '文章', link: '/blog/' }
+      { text: '博客', link: '/blog/' },
+      { text: '笔记', link: '/notes/' }
     ],
 
     sidebar: {
-      '/blog/': getBlogSidebar()
+      '/blog/': getSectionSidebar('blog', '/blog', '最近博客'),
+      '/notes/': getSectionSidebar('notes', '/notes', '最近笔记')
     },
 
     socialLinks: [
@@ -115,8 +117,8 @@ export default defineConfig({
           root: {
             translations: {
               button: {
-                buttonText: '搜索文章',
-                buttonAriaLabel: '搜索文章'
+                buttonText: '搜索内容',
+                buttonAriaLabel: '搜索内容'
               },
               modal: {
                 noResultsText: '没有找到相关内容',

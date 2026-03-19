@@ -27,7 +27,7 @@ const aiLinks = [
       <h1 class="hero-title">欢迎来到我的博客</h1>
       <div class="search-trigger" @click="openSearch">
         <span class="icon">🔍</span>
-        <span class="placeholder">试着搜索一篇文章，或者从目录页开始逛逛</span>
+        <span class="placeholder">试着搜索博客或笔记，或者从目录页开始逛逛</span>
         <div class="shortcut">
           <span class="arrow">→</span>
         </div>
@@ -219,3 +219,4 @@ const aiLinks = [
   background: rgba(255, 255, 255, 0.15);
 }
 </style>
+

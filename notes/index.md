@@ -1,28 +1,30 @@
 ﻿---
-title: 博客目录
+title: 笔记目录
 ---
 
 <script setup>
-import { data as posts } from '../.vitepress/theme/utils/posts.data'
+import { data as notes } from '../.vitepress/theme/utils/notes.data'
 </script>
 
-# 博客目录
+# 笔记目录
 
-共收录 **{{ posts.length }}** 篇博客文章，点击标题可以直接进入正文。
+这里收录通过整理、抓取或学习沉淀下来的笔记内容。
+
+共收录 **{{ notes.length }}** 篇笔记，点击标题可以直接进入正文。
 
 <div class="directory-list">
-  <article v-for="(post, index) in posts" :key="post.url" class="directory-item">
+  <article v-for="(note, index) in notes" :key="note.url" class="directory-item">
     <div class="directory-order">{{ String(index + 1).padStart(2, '0') }}</div>
     <div class="directory-main">
       <h2>
-        <a :href="post.url">{{ post.title }}</a>
+        <a :href="note.url">{{ note.title }}</a>
       </h2>
       <p class="directory-meta">
-        <span>{{ post.url }}</span>
-        <span v-if="post.date">{{ post.date.string }}</span>
+        <span>{{ note.url }}</span>
+        <span v-if="note.date">{{ note.date.string }}</span>
         <span v-else>未填写日期</span>
       </p>
-      <p v-if="post.excerpt" class="directory-excerpt" v-html="post.excerpt"></p>
+      <p v-if="note.excerpt" class="directory-excerpt" v-html="note.excerpt"></p>
     </div>
   </article>
 </div>
