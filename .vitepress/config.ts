@@ -6,6 +6,7 @@ import matter from 'gray-matter'
 interface SidebarItem {
   text: string
   link: string
+  date: number | null
 }
 
 function toDisplayTitle(slug: string) {
@@ -16,10 +17,19 @@ function toDisplayTitle(slug: string) {
     .join(' ')
 }
 
+function parseDate(value: unknown) {
+  if (typeof value !== 'string' || !value.trim()) return null
+
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+
+  return date.getTime()
+}
+
 function getBlogSidebar() {
   const blogDir = path.resolve(__dirname, '../blog')
 
-  const items: SidebarItem[] = fs
+  const items = fs
     .readdirSync(blogDir)
     .filter(file => file.endsWith('.md') && file !== 'index.md')
     .map(file => {
@@ -30,10 +40,21 @@ function getBlogSidebar() {
 
       return {
         text: typeof data.title === 'string' && data.title.trim() ? data.title.trim() : toDisplayTitle(slug),
-        link: `/blog/${encodeURI(slug)}`
-      }
+        link: `/blog/${encodeURI(slug)}`,
+        date: parseDate(data.date)
+      } satisfies SidebarItem
     })
-    .sort((a, b) => a.text.localeCompare(b.text, 'zh-CN'))
+    .sort((a, b) => {
+      if (a.date !== null && b.date !== null) {
+        return b.date - a.date
+      }
+
+      if (a.date !== null) return -1
+      if (b.date !== null) return 1
+
+      return a.text.localeCompare(b.text, 'zh-CN')
+    })
+    .map(({ text, link }) => ({ text, link }))
 
   return [
     {
