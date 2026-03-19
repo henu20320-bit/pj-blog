@@ -58,10 +58,14 @@ const friendLinks = [
 ]
 
 const showPanel = computed(() => route.path.startsWith('/blog/') || route.path.startsWith('/notes/'))
+const isReadingPage = computed(() => {
+  if (!showPanel.value) return false
+  return !['/blog/', '/blog/index.html', '/notes/', '/notes/index.html'].includes(route.path)
+})
 </script>
 
 <template>
-  <div v-if="showPanel" class="right-rail">
+  <div v-if="showPanel" class="right-rail" :class="{ 'is-reading': isReadingPage }">
     <section class="rail-card rail-profile">
       <div class="profile-top">
         <div class="avatar-shell">
@@ -163,7 +167,12 @@ const showPanel = computed(() => route.path.startsWith('/blog/') || route.path.s
   display: flex;
   flex-direction: column;
   gap: 18px;
+  padding-top: 24px;
   padding-bottom: 24px;
+}
+
+.right-rail.is-reading {
+  padding-top: 0;
 }
 
 .rail-card {

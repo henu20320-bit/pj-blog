@@ -520,3 +520,74 @@ body {
         max-width: 1440px;
     }
 }
+
+/* code reading */
+:root {
+    --vp-font-family-mono: 'Cascadia Code', 'JetBrains Mono', 'SFMono-Regular', 'Maple Mono CN SemiBold', 'Maple Mono CN', Consolas, 'Liberation Mono', monospace;
+}
+
+.vp-doc code,
+.vp-doc pre,
+.vp-doc div[class*='language-'] code,
+.vp-doc div[class*='language-'] pre {
+    font-family: var(--vp-font-family-mono) !important;
+    font-size: 0.95em;
+    line-height: 1.72;
+    font-weight: 520;
+    font-variant-ligatures: contextual;
+}
+
+.vp-doc :not(pre) > code {
+    padding: 0.18rem 0.45rem;
+    border-radius: 8px;
+    background: rgba(64, 128, 255, 0.08);
+}
+
+.vp-doc div[class*='language-'] {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.vp-doc div[class*='language-'] pre {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+/* aside alignment */
+.VPDocAside {
+    margin-top: 0 !important;
+    padding-top: 24px;
+}
+
+.VPDocAside .content {
+    position: sticky;
+    top: calc(var(--vp-nav-height) + 24px);
+}
+
+body.reading-page .VPDocAside {
+    padding-top: 0;
+}
+
+body.reading-page .VPDocAsideOutline {
+    margin-top: 0;
+}
+
+/* reading page nav */
+@media (min-width: 960px) {
+    body.reading-page .VPNavBar.has-sidebar .content,
+    body.reading-page .VPNavBar.has-sidebar .divider,
+    body.reading-page .VPContent.has-sidebar {
+        padding-left: 24px !important;
+    }
+
+    body.reading-page .VPNavBarTitle {
+        position: relative;
+        z-index: 2;
+        min-width: 132px;
+    }
+
+    body.reading-page .VPNavBarSearch {
+        padding-left: 18px;
+        margin-left: 12px;
+    }
+}
